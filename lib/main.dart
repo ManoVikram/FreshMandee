@@ -11,8 +11,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: "The Farm Market",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: TheFarm(),
       routes: {},
     );
