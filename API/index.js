@@ -11,5 +11,14 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// MongoDB configuration
+const db = require("./config/urls");
+
+// Attempt to connect to database
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(
+        () => console.log("Connected to MongoDB successfully."),
+).catch(
+    (error) => console.log("Error connecting to MongoDB" + error),
+);
 
 app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));
