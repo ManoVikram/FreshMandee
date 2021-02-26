@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Importing all routes
+
 // MongoDB configuration
 const db = require("./config/urls");
 
@@ -20,5 +22,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindA
 ).catch(
     (error) => console.log("Error connecting to MongoDB" + error),
 );
+
+// Routes
 
 app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));

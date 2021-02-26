@@ -14,6 +14,9 @@ const FarmerSchema = Schema(
         name: {
             type: String,
         },
+        location: {
+            type: String,
+        },
         products: [
             {
                 productID: {
