@@ -5,7 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../colorPalette.dart';
 
+import './signupScreen.dart';
+
 class LoginScreen extends StatefulWidget {
+  static const routeName = "/loginScreen";
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -39,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Text(
-                  "Farmer👋",
+                  "Human👋",
                   style: TextStyle(
                     fontFamily: GoogleFonts.exo().fontFamily,
                     fontWeight: FontWeight.bold,
@@ -88,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: size.height * 0.1,
+                  height: size.height * 0.08,
                 ),
                 Center(
                   child: Container(
@@ -135,14 +139,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           width: 5.0,
                         ),
-                        Text(
-                          "Join Us",
-                          style: TextStyle(
-                            color: Colors.deepPurple,
-                            fontFamily: GoogleFonts.exo2().fontFamily,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed(SignupScreen.routeName);
+                          },
+                          child: Text(
+                            "Join Us",
+                            style: TextStyle(
+                              color: Colors.deepPurple,
+                              fontFamily: GoogleFonts.exo2().fontFamily,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],

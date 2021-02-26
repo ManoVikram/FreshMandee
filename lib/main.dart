@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './screens/loginScreen.dart';
+import './screens/signupScreen.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -15,7 +16,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: TheFarm(),
-      routes: {},
+      routes: {
+        LoginScreen.routeName: (contxt) => LoginScreen(),
+        SignupScreen.routeName: (contxt) => SignupScreen(),
+      },
     );
   }
 }
@@ -24,7 +28,7 @@ class TheFarm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoginScreen(),
+      body: SignupScreen(),
     );
   }
 }
