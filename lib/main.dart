@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import './screens/loginScreen.dart';
 import './screens/signupScreen.dart';
+import './screens/otpScreen.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -25,12 +27,33 @@ class _MyAppState extends State<MyApp> {
 }
 
 class TheFarm extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SignupScreen(),
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Center(
+            child: Text("ERROR" + snapshot.error),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return OTPScreen();
+        }
+
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}

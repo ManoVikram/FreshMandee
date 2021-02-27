@@ -15,6 +15,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _phoneNumberController = TextEditingController();
+
+  @override
+  void dispose() {
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -109,10 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                         padding: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 40.0),
+                          vertical: 14.0,
+                          horizontal: 40.0,
+                        ),
                       ),
                       child: Text(
-                        "Login",
+                        "Verify",
                         style: TextStyle(
                           fontFamily: GoogleFonts.montserrat().fontFamily,
                           fontSize: 28,

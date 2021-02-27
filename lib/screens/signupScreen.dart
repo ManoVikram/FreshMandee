@@ -20,13 +20,53 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController _phoneNumberController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  @override
+  void dispose() {
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
   Future<void> _makeCall() async {
-    const url = "tel:9876543210";
+    const url = "tel:+919876543210";
     if (await canLaunch(url)) {
       await launch(url);
     } else {
       throw "Couldn't launch $url";
     }
+  }
+
+  Future<void> _phoneAuthentication() async {
+    await auth.verifyPhoneNumber(
+      phoneNumber: "+91${_phoneNumberController.text}",
+      timeout: Duration(
+        seconds: 60,
+      ),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int resendToken) async {
+        // Update the UI - wait for the user to enter the SMS code
+        String smsCode = "123456";
+
+        // Create a PhoneAuthCredential with the code
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: smsCode);
+
+        // Sign the user in (or link) with the credential
+        await auth.signInWithCredential(phoneAuthCredential);
+      },
+      codeAutoRetrievalTimeout: (String verificatinoId) {
+        print(verificatinoId);
+      },
+    );
   }
 
   @override
@@ -70,7 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   style: TextStyle(
                     fontFamily: GoogleFonts.exo().fontFamily,
                     fontWeight: FontWeight.bold,
-                    fontSize: 64,
+                    fontSize: 72,
                     color: Colors.amber,
                   ),
                 ),
@@ -78,6 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: size.height * 0.05,
                 ),
                 TextField(
+                  controller: _phoneNumberController,
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(10),
                   ],
@@ -121,7 +162,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Container(
                     width: size.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _phoneAuthentication,
                       style: ElevatedButton.styleFrom(
                         elevation: 7.0,
                         primary: Colors.deepOrange,
@@ -132,10 +173,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           borderRadius: BorderRadius.circular(50.0),
                         ),
                         padding: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 40.0),
+                          vertical: 14.0,
+                          horizontal: 40.0,
+                        ),
                       ),
                       child: Text(
-                        "Sign Up",
+                        "Verify",
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: GoogleFonts.montserrat().fontFamily,
