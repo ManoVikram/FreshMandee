@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 // Importing all routes
 const authenticateUser = require("./routes/api/registerPerson");
 const authenticateFarmer = require("./routes/api/registerFarmer");
+const updateUser = require("./routes/api/updatePerson");
 
 // MongoDB configuration
 const db = require("./config/urls").mongoURL;
@@ -28,5 +29,6 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindA
 // Routes
 app.use("/api/auth", authenticateUser);
 app.use("/api/auth/farmer", authenticateFarmer);
+app.use("/api/auth/update", updateUser);
 
 app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));

@@ -44,9 +44,9 @@ router.post("/profile", (request, response) => {
     Person.findOne({ firebaseUID: request.body.firebaseUID }).then(
         (person) => {
             if (!person) {
-                response.status(404).json({ error: "Unable to find user." });
+                return response.status(404).json({ error: "Unable to find user." });
             } else {
-                response.json(person);
+                return response.json(person);
             }
         }
     ).catch(

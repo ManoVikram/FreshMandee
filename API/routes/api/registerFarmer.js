@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const admin = require("../../config/admin");
+
 const Person = require("../../models/Person");
 const Farmer = require("../../models/Farmer");
 const { response } = require("express");
@@ -12,7 +14,7 @@ DESC    Route for registering the Farmer
 ACCESS  PRIVATE
  */
 router.post("/registerFarmer", (request, response) => {
-    if (request.body.adminFirebaseUID == "41Rw5IO23IQoQJTAmvu4Qokr7e43") {
+    if (request.body.adminFirebaseUID == admin.ADMIN_FIREBASE_UID) {
         Person.findOne({ email: request.body.email }).then(
             (person) => {
                 if (person) {
@@ -111,7 +113,7 @@ ACCESS  PRIVATE
  */
 
 router.post("/all", (request, response) => {
-    if (request.body.adminFirebaseUID == "41Rw5IO23IQoQJTAmvu4Qokr7e43") {
+    if (request.body.adminFirebaseUID == admin.ADMIN_FIREBASE_UID) {
         Person.find({}, (error, farmer) => {
             if (error) {
                 throw error;
@@ -124,7 +126,7 @@ router.post("/all", (request, response) => {
                     }
                 });
 
-                response.json({farmers: farmers});
+                return response.json({farmers: farmers});
             }
         });
     } else {
