@@ -7,10 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 import '../colorPalette.dart';
 
 import './loginScreen.dart';
+import './otpScreen.dart';
+import '../models/phoneNumber.dart';
 
 class SignupScreen extends StatefulWidget {
   static const String routeName = "/signupScreen";
@@ -20,12 +23,16 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController _phoneNumberController = TextEditingController();
-  FirebaseAuth auth = FirebaseAuth.instance;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  bool _isLoading = false;
 
   @override
   void dispose() {
-    _phoneNumberController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -38,11 +45,11 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
-  Future<void> _phoneAuthentication() async {
+  /* Future<void> _phoneAuthentication() async {
     await auth.verifyPhoneNumber(
       phoneNumber: "+91${_phoneNumberController.text}",
       timeout: Duration(
-        seconds: 60,
+        seconds: 30,
       ),
       verificationCompleted: (PhoneAuthCredential credential) async {
         await auth.signInWithCredential(credential);
@@ -53,25 +60,112 @@ class _SignupScreenState extends State<SignupScreen> {
         }
       },
       codeSent: (String verificationId, int resendToken) async {
-        // Update the UI - wait for the user to enter the SMS code
-        String smsCode = "123456";
+        /* // Update the UI - wait for the user to enter the SMS code
+        String smsCode = "";
 
         // Create a PhoneAuthCredential with the code
         PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
             verificationId: verificationId, smsCode: smsCode);
 
         // Sign the user in (or link) with the credential
-        await auth.signInWithCredential(phoneAuthCredential);
+        await auth.signInWithCredential(phoneAuthCredential); */
       },
-      codeAutoRetrievalTimeout: (String verificatinoId) {
-        print(verificatinoId);
+      codeAutoRetrievalTimeout: (String verificationID) {
+        print(verificationID);
       },
+    );
+  } */
+
+  Future<void> _registerUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      print(userCredential);
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = "ERROR: Enter a correct Email and Password.";
+
+      if (e.code == 'weak-password') {
+        errorMessage = 'The password provided is too weak.';
+      } else if (e.code == 'email-already-in-use') {
+        errorMessage = 'The account already exists for that email.';
+      }
+
+      if (errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("ERROR: " + errorMessage),
+            backgroundColor: Theme.of(context).errorColor,
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Widget _textField([bool isPassword = false]) {
+    return TextField(
+      controller: isPassword ? _passwordController : _emailController,
+      /* inputFormatters: [
+        LengthLimitingTextInputFormatter(10),
+      ],
+      maxLength: 10, */
+      onChanged: (value) {
+        // phoneNumber.setPhoneNumber = value;
+      },
+      keyboardType: isPassword
+          ? TextInputType.visiblePassword
+          : TextInputType.emailAddress,
+      autocorrect: false,
+      enableSuggestions: false,
+      cursorColor: Colors.deepOrangeAccent,
+      showCursor: true,
+      obscureText: isPassword ? true : false,
+      style: TextStyle(
+        fontFamily: GoogleFonts.oxygen().fontFamily,
+        fontSize: 24.0,
+        fontWeight: FontWeight.bold,
+      ),
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        /* prefix: Container(
+          padding: EdgeInsets.only(right: 8.0),
+          child: Text("+91"),
+        ), */
+        contentPadding: EdgeInsets.all(16.0),
+        labelText: isPassword ? "Password" : "Email",
+        labelStyle: TextStyle(
+          fontFamily: GoogleFonts.montserrat().fontFamily,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+        focusColor: Colors.greenAccent[700],
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.greenAccent[700],
+            width: 3.0,
+          ),
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final PhoneNumber phoneNumber = context.watch<PhoneNumber>();
 
     return Scaffold(
       body: SafeArea(
@@ -88,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Try",
+                  "Try It",
                   style: TextStyle(
                     fontFamily: GoogleFonts.exo().fontFamily,
                     fontWeight: FontWeight.bold,
@@ -96,7 +190,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     // color: green,
                   ),
                 ),
-                Text(
+                /* Text(
                   "It",
                   style: TextStyle(
                     fontFamily: GoogleFonts.exo().fontFamily,
@@ -104,7 +198,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     fontSize: 64,
                     // color: green,
                   ),
-                ),
+                ), */
                 Text(
                   "Out🌱",
                   style: TextStyle(
@@ -117,44 +211,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(
                   height: size.height * 0.05,
                 ),
-                TextField(
-                  controller: _phoneNumberController,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(10),
-                  ],
-                  maxLength: 10,
-                  // textAlign: TextAlign.center,
-                  keyboardType: TextInputType.phone,
-                  cursorColor: Colors.deepOrangeAccent,
-                  showCursor: true,
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.oxygen().fontFamily,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    prefix: Container(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Text("+91"),
-                    ),
-                    contentPadding: EdgeInsets.all(16.0),
-                    labelText: "Phone Number",
-                    labelStyle: TextStyle(
-                      fontFamily: GoogleFonts.montserrat().fontFamily,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                    focusColor: Colors.greenAccent[700],
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.greenAccent[700],
-                        width: 3.0,
-                      ),
-                    ),
-                  ),
-                ),
+                _textField(),
+                _textField(true),
                 SizedBox(
                   height: size.height * 0.03,
                 ),
@@ -162,7 +220,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Container(
                     width: size.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: _phoneAuthentication,
+                      onPressed: _registerUser,
                       style: ElevatedButton.styleFrom(
                         elevation: 7.0,
                         primary: Colors.deepOrange,
@@ -177,15 +235,24 @@ class _SignupScreenState extends State<SignupScreen> {
                           horizontal: 40.0,
                         ),
                       ),
-                      child: Text(
-                        "Verify",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: GoogleFonts.montserrat().fontFamily,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? Center(
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                  accentColor: Colors.white,
+                                ),
+                                child: CircularProgressIndicator(),
+                              ),
+                            )
+                          : Text(
+                              "SIGN UP",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: GoogleFonts.montserrat().fontFamily,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                     ),
                   ),
                 ),

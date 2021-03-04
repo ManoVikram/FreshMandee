@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 import './screens/loginScreen.dart';
 import './screens/signupScreen.dart';
 import './screens/otpScreen.dart';
+import './screens/homeScreen.dart';
+import './models/phoneNumber.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,47 +17,57 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "The Farm Market",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      home: TheFarm(),
-      routes: {
-        LoginScreen.routeName: (contxt) => LoginScreen(),
-        SignupScreen.routeName: (contxt) => SignupScreen(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (contxt) => PhoneNumber(),
+        ),
+      ],
+      child: MaterialApp(
+        title: "The Farm Market",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
+        home: TheFarm(),
+        routes: {
+          LoginScreen.routeName: (contxt) => LoginScreen(),
+          SignupScreen.routeName: (contxt) => SignupScreen(),
+          OTPScreen.routeName: (contxt) => OTPScreen(),
+          HomeScreen.routeName: (contxt) => HomeScreen(),
+        },
+      ),
     );
   }
 }
 
 class TheFarm extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return Center(
-            child: Text("ERROR" + snapshot.error),
-          );
-        }
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, userSnapshot) {
+          if (userSnapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          return OTPScreen();
-        }
+          if (userSnapshot.connectionState == ConnectionState.active) {
+            // FirebaseAuth.instance.signOut();
+            if (userSnapshot.hasData) {
+              return HomeScreen();
+            }
+          }
 
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+          return LoginScreen();
+        },
+      ),
     );
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }

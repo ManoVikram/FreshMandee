@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 
 import './loginScreen.dart';
+import '../models/phoneNumber.dart';
 
 class OTPScreen extends StatefulWidget {
   static const String routeName = "/otpScreen";
@@ -17,19 +20,63 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   TextEditingController _otpController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   StreamController<ErrorAnimationType> _errorController =
       StreamController<ErrorAnimationType>();
 
+  PhoneNumber _phoneNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumber = context.read<PhoneNumber>();
+  }
+
   @override
   void dispose() {
-    _otpController.dispose();
+    // _otpController.dispose();
     super.dispose();
+  }
+
+  Future<void> _phoneAuthentication() async {
+    return await auth.verifyPhoneNumber(
+      phoneNumber: "+91${_phoneNumber.getPhoneNumber}",
+      timeout: Duration(
+        seconds: 30,
+      ),
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        print(credential);
+        // await auth.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        if (e.code == 'invalid-phone-number') {
+          print('The provided phone number is not valid.');
+        }
+      },
+      codeSent: (String verificationId, int resendToken) async {
+        // Update the UI - wait for the user to enter the SMS code
+        String smsCode = _otpController.text;
+
+        // Create a PhoneAuthCredential with the code
+        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: smsCode);
+
+        print(phoneAuthCredential);
+
+        // Sign the user in (or link) with the credential
+        await auth.signInWithCredential(phoneAuthCredential);
+      },
+      codeAutoRetrievalTimeout: (String verificatinoId) {
+        print(verificatinoId);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final PhoneNumber phoneNumber = context.watch<PhoneNumber>();
 
     return Scaffold(
       body: SafeArea(
@@ -93,7 +140,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                         children: [
                           TextSpan(
-                            text: "+91-xxxxxxxxxx",
+                            text: "+91-${phoneNumber.getPhoneNumber}",
                             style: TextStyle(
                               fontFamily: GoogleFonts.exo2().fontFamily,
                               fontWeight: FontWeight.bold,
@@ -116,6 +163,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   cursorColor: Colors.white,
                   enableActiveFill: true,
                   keyboardType: TextInputType.number,
+                  backgroundColor: Colors.white10,
                   pinTheme: PinTheme(
                     shape: PinCodeFieldShape.circle,
                     activeFillColor: Colors.lightGreenAccent,
@@ -134,7 +182,10 @@ class _OTPScreenState extends State<OTPScreen> {
                   height: 36.0,
                 ),
                 NeumorphicButton(
-                  onPressed: () {},
+                  /* onPressed: () {
+                    _phoneAuthentication();
+                  }, */
+                  onPressed: _phoneAuthentication,
                   style: NeumorphicStyle(
                     depth: 20.0,
                     color: Colors.tealAccent,
@@ -176,7 +227,9 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        _phoneAuthentication();
+                      },
                       child: Text(
                         "Resend",
                         style: TextStyle(
