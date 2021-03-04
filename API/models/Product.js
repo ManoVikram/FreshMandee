@@ -15,6 +15,10 @@ const ProductSchema = Schema(
             type: Number,
             required: true,
         },
+        /* quantity: {
+            type: Number,
+            required: true,
+        }, */
         image: {
             data: Buffer,
             contentType: String,

@@ -3,36 +3,15 @@ const Schema = mongoose.Schema;
 
 const FarmerSchema = Schema(
     {
+        personID: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
         firebaseUID: {
             type: String,
             required: true,
-        },
-        phoneNumber: {
-            type: Number,
-            required: true,
-        },
-        name: {
-            type: String,
-        },
-        location: {
-            type: String,
-        },
-        products: [
-            {
-                productID: {
-                    type: Schema.Types.ObjectId,
-                },
-                date: {
-                    type: Date,
-                    default: Date.now(),
-                },
-            }
-        ],
-        date: {
-            type: Date,
-            default: Date.now(),
-        },
-    }
+        }
+    },
 );
 
 mongoose.exports = Farmer = mongoose.model("farmer", FarmerSchema);
