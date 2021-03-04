@@ -61,4 +61,4 @@ const PersonSchema = Schema(
     }
 );
 
-mongoose.exports = Person = mongoose.model("person", PersonSchema);
+module.exports = Person = mongoose.model("person", PersonSchema);

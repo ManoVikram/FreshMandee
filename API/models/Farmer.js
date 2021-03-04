@@ -14,4 +14,4 @@ const FarmerSchema = Schema(
     },
 );
 
-mongoose.exports = Farmer = mongoose.model("farmer", FarmerSchema);
+module.exports = Farmer = mongoose.model("farmer", FarmerSchema);
