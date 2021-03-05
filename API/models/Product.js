@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = Schema(
     {
+        categoryID: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
         farmerID: {
             type: Schema.Types.ObjectId,
             required: true,
