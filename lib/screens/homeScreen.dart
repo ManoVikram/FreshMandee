@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../colorPalette.dart';
 
 import '../widgets/homeHeader.dart';
 import '../widgets/customUnderlinedText.dart';
 import '../widgets/categoryList.dart';
+import '../widgets/discountList.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/homeScreen";
@@ -84,6 +86,7 @@ class HomeScreen extends StatelessWidget {
             CategoryList(
               size: size,
             ),
+            DiscountList(size: size),
           ],
         ),
       ),
