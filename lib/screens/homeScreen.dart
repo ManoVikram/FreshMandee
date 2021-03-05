@@ -7,6 +7,7 @@ import '../widgets/homeHeader.dart';
 import '../widgets/customUnderlinedText.dart';
 import '../widgets/categoryList.dart';
 import '../widgets/discountList.dart';
+import '../widgets/popularDeals.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/homeScreen";
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
     Widget customAppBar() {
       return AppBar(
+        centerTitle: true,
         elevation: 0.0,
         leading: IconButton(
           icon: Column(
@@ -87,6 +89,16 @@ class HomeScreen extends StatelessWidget {
               size: size,
             ),
             DiscountList(size: size),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CustomUnderlinedText(
+                  text: "Popular deals",
+                ),
+              ),
+            ),
+            PopularDeals(size: size),
           ],
         ),
       ),
