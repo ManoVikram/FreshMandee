@@ -9,6 +9,8 @@ import './screens/otpScreen.dart';
 import './screens/homeScreen.dart';
 import './models/phoneNumber.dart';
 
+import './colorPalette.dart';
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -26,7 +28,12 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: "The Farm Market",
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.light(),
+        theme: ThemeData(
+          scaffoldBackgroundColor: white,
+          primaryColor: primaryGreen,
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: grey),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
         home: TheFarm(),
         routes: {
           LoginScreen.routeName: (contxt) => LoginScreen(),
