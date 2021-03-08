@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './popularDealsCard.dart';
+import '../screens/productDetailsScreen.dart';
 
 class PopularDeals extends StatelessWidget {
   const PopularDeals({
@@ -23,7 +24,9 @@ class PopularDeals extends StatelessWidget {
             size: size,
             image: "assets/images/FarmerBuyer.png",
             deal: "25",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
+            },
           ),
           PopularDealsCard(
             size: size,

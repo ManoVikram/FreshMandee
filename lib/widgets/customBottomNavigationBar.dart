@@ -22,7 +22,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           BoxShadow(
             offset: Offset(0, -10),
             blurRadius: 35.0,
-            color: primaryGreen.withOpacity(0.3),
+            color: Colors.tealAccent.withOpacity(0.2),
           ),
         ],
       ),
@@ -33,6 +33,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
             icon: FaIcon(
               FontAwesomeIcons.home,
             ),
+            /* icon: Icon(
+              Icons.home_outlined,
+            ), */
             onPressed: () {},
           ),
           IconButton(
