@@ -12,58 +12,39 @@ class PopularDeals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        // crossAxisAlignment: WrapCrossAlignment.center,
+        // TODO: Change the image and deal value.
+        children: [
+          PopularDealsCard(
+            size: size,
+            image: "assets/images/FarmerBuyer.png",
+            deal: "25",
+            onPressed: () {},
           ),
-          deal: "25",
-        ),
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
+          PopularDealsCard(
+            size: size,
+            image: "assets/images/FarmerBuyer.png",
+            deal: "25",
+            onPressed: () {},
           ),
-          deal: "25",
-        ),
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
+          PopularDealsCard(
+            size: size,
+            image: "assets/images/FarmerBuyer.png",
+            deal: "25",
+            onPressed: () {},
           ),
-          deal: "25",
-        ),
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
+          PopularDealsCard(
+            size: size,
+            image: "assets/images/FarmerBuyer.png",
+            deal: "25",
+            onPressed: () {},
           ),
-          deal: "25",
-        ),
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
-          ),
-          deal: "25",
-        ),
-        PopularDealsCard(
-          size: size,
-          image: Image.asset(
-            "assets/images/FarmerBuyer.png",
-            fit: BoxFit.cover,
-          ),
-          deal: "25",
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

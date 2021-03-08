@@ -8,6 +8,7 @@ import '../widgets/customUnderlinedText.dart';
 import '../widgets/categoryList.dart';
 import '../widgets/discountList.dart';
 import '../widgets/popularDeals.dart';
+import '../widgets/customBottomNavigationBar.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/homeScreen";
@@ -99,9 +100,13 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             PopularDeals(size: size),
+            SizedBox(
+              height: 20.0,
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
