@@ -66,8 +66,10 @@ class ProductImageAndIcons extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 10),
-                    blurRadius: 60,
-                    color: Colors.tealAccent.withOpacity(0.4),
+                    // blurRadius: 60,
+                    // color: Colors.tealAccent.withOpacity(0.4),
+                    color: Colors.deepOrangeAccent.withOpacity(0.5),
+                    spreadRadius: 10.0,
                   ),
                 ],
                 image: DecorationImage(
