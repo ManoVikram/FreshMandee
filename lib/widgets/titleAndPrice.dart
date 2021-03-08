@@ -43,11 +43,24 @@ class TitleAndPrice extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Text(
-            "₹$price",
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: primaryGreen,
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "₹$price",
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: primaryGreen,
+                      ),
                 ),
+                TextSpan(
+                  text: " / KG",
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                        color: grey,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

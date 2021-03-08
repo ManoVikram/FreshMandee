@@ -10,52 +10,67 @@ import '../widgets/discountList.dart';
 import '../widgets/popularDeals.dart';
 import '../widgets/customBottomNavigationBar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
     Widget customAppBar() {
       return AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0.0,
-        leading: IconButton(
-          icon: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 3,
-                width: 18,
-                color: white,
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Container(
-                height: 3,
-                width: 12,
-                color: white,
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Container(
-                height: 3,
-                width: 20,
-                color: white,
-              ),
-            ],
+        leading: Builder(
+          builder: (contxt) => IconButton(
+            icon: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 3,
+                  width: 18,
+                  color: white,
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Container(
+                  height: 3,
+                  width: 12,
+                  color: white,
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Container(
+                  height: 3,
+                  width: 20,
+                  color: white,
+                ),
+              ],
+            ),
+            onPressed: () {
+              // Scaffold.of(context).openDrawer();
+              return _scaffoldKey.currentState.openDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           ),
-          onPressed: () {},
         ),
       );
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: customAppBar(),
+      drawer: Drawer(),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(

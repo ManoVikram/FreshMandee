@@ -14,7 +14,7 @@ class ProductImageAndIcons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 60.0),
+      padding: const EdgeInsets.only(bottom: 0.0),
       child: SizedBox(
         height: size.height * 0.8,
         child: Row(
@@ -55,28 +55,31 @@ class ProductImageAndIcons extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: size.height * 0.8,
-              width: size.width * 0.75,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(65),
-                  bottomLeft: Radius.circular(65),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 10),
-                    // blurRadius: 60,
-                    // color: Colors.tealAccent.withOpacity(0.4),
-                    color: Colors.deepOrangeAccent.withOpacity(0.5),
-                    spreadRadius: 10.0,
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                height: size.height * 0.7,
+                width: size.width * 0.75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(65),
+                    bottomLeft: Radius.circular(65),
                   ),
-                ],
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  alignment: Alignment.centerRight,
-                  // Change the image correspondingly
-                  image: AssetImage("assets/images/FarmerBuyer.png"),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 10),
+                      // blurRadius: 60,
+                      // color: Colors.tealAccent.withOpacity(0.4),
+                      color: Colors.deepOrangeAccent.withOpacity(0.5),
+                      spreadRadius: 10.0,
+                    ),
+                  ],
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.centerRight,
+                    // TODO: Change the image correspondingly and add Hero animation
+                    image: AssetImage("assets/images/FarmerBuyer.png"),
+                  ),
                 ),
               ),
             ),

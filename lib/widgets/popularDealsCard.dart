@@ -84,6 +84,7 @@ class PopularDealsCard extends StatelessWidget {
         width: size.width * 0.8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
+          // TODO: Add Hero animation
           image: DecorationImage(
             image: AssetImage(image),
             fit: BoxFit.cover,
