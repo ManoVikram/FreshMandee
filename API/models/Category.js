@@ -7,9 +7,13 @@ const CategorySchema = Schema(
             type: String,
             required: true,
         },
+        // image: {
+        //     data: Buffer,
+        //     contentType: String,
+        //     // required: true,
+        // },
         image: {
-            data: Buffer,
-            contentType: String,
+            type: String,
             required: true,
         },
     }

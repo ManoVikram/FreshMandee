@@ -11,10 +11,14 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
+
 // Importing all routes
 const authenticateUser = require("./routes/api/registerPerson");
 const authenticateFarmer = require("./routes/api/registerFarmer");
 const updateUser = require("./routes/api/updatePerson");
+const categories = require("./routes/api/categories");
 
 // MongoDB configuration
 const db = require("./config/urls").mongoURL;
@@ -30,5 +34,6 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindA
 app.use("/api/auth", authenticateUser);
 app.use("/api/auth/farmer", authenticateFarmer);
 app.use("/api/auth/update", updateUser);
+app.use("/api/category/", categories);
 
 app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));
