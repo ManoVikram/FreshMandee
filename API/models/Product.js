@@ -7,10 +7,10 @@ const ProductSchema = Schema(
             type: Schema.Types.ObjectId,
             required: true,
         },
-        farmerID: {
+        /* farmerID: {
             type: Schema.Types.ObjectId,
             required: true,
-        },
+        }, */
         name: {
             type: String,
             required: true,
@@ -27,9 +27,13 @@ const ProductSchema = Schema(
             type: Number,
             required: true,
         }, */
-        image: {
+        /* image: {
             data: Buffer,
             contentType: String,
+            required: true,
+        }, */
+        image: {
+            type: String,
             required: true,
         },
         description: {
