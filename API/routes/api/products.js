@@ -157,13 +157,13 @@ router.post("/allProducts", (request, response) => {
 TYPE    POST
 ROUTE   /api/category/product/update
 DESC    Route for the product under a certain category
-ACCESS  PRIVATE
+ACCESS  PUBLIC
  */
 router.post("/update", (request, response) => {
-    if (request.body.adminFirebaseUID == admin.ADMIN_FIREBASE_UID) {
-        Person.findOne({ firebaseUID: request.body.adminFirebaseUID }).then(
+    // if (request.body.adminFirebaseUID == admin.ADMIN_FIREBASE_UID) {
+        Person.findOne({ firebaseUID: request.body.firebaseUID }).then(
             (person) => {
-                if (!person) {
+                if (!person || !person.isFarmer) {
                     return response.status(400).json({ error: "You are not allowed to access this route." });
                 } else {
                     Category.findOne({ _id: request.body.categoryID }).then(
@@ -214,9 +214,9 @@ router.post("/update", (request, response) => {
         ).catch(
             (error) => console.log("Unable to allow user to access this route. " + error),
         );
-    } else {
+    /* } else {
         return response.status(400).json({ error: "You are not allowed to access this route." });
-    }
+    } */
 });
 
 module.exports = router;
