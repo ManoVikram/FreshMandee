@@ -155,6 +155,46 @@ router.post("/allProducts", (request, response) => {
 
 /*
 TYPE    POST
+ROUTE   /api/category/product/view
+DESC    Route to view details of a particular product under a category
+ACCESS  PUBLIC
+ */
+router.post("/view", (request, response) => {
+    Person.findOne({ firebaseUID: request.body.firebaseUID }).then(
+        (person) => {
+            if (!person) {
+                return response.status(400).json({ error: "You are not allowed to access this route." });
+            } else {
+                Category.findOne({ _id: request.body.categoryID }).then(
+                    (category) => {
+                        if (!category) {
+                            return response.status(400).json({ error: "No such category available." });
+                        } else {
+                            Product.findOne({ _id: request.body.productID }).then(
+                                (product) => {
+                                    if (!product) {
+                                        return response.status(400).json({ error: "Product unavailable" });
+                                    } else {
+                                        return response.json(product);
+                                    }
+                                }
+                            ).catch(
+                                (error) => console.log("Unable to find the right product. " + error),
+                            );
+                        }
+                    }
+                ).catch(
+                    (error) => console.log("Unable to find the correct category. " + error),
+                );
+            }
+        }
+    ).catch(
+        (error) => console.log("Unable to find the user. " + error),
+    );
+});
+
+/*
+TYPE    POST
 ROUTE   /api/category/product/update
 DESC    Route for the product under a certain category
 ACCESS  PUBLIC
