@@ -39,12 +39,19 @@ const PersonSchema = Schema(
                 },
             }
         ],
+        cartID: {
+            type: Schema.Types.ObjectId,
+        },
         productsBuy: [
             {
                 productID: {
                     type: Schema.Types.ObjectId,
                 },
                 quantity: {
+                    type: Number,
+                    default: 0,
+                },
+                price: {
                     type: Number,
                     default: 0,
                 },
