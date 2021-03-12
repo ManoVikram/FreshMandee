@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const CartSchema = Schema(
     {
+        userID: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
         productsList: [
             {
                 productID: {
@@ -16,3 +20,5 @@ const CartSchema = Schema(
         ],
     }
 );
+
+module.exports = Cart = mongoose.model("cart", CartSchema);
