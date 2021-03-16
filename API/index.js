@@ -21,6 +21,7 @@ const updateUser = require("./routes/api/updatePerson");
 const categories = require("./routes/api/categories");
 const products = require("./routes/api/products");
 const cart = require("./routes/api/userCart");
+const placeOrder = require("./routes/api/placeOrder");
 
 // MongoDB configuration
 const db = require("./config/urls").mongoURL;
@@ -39,5 +40,6 @@ app.use("/api/auth/update", updateUser);
 app.use("/api/category", categories);
 app.use("/api/category/product", products);
 app.use("/api/user/cart", cart);
+app.use("/api/user", placeOrder);
 
 app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));
