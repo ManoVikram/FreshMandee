@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+API/config/admin.js
+API/config/urls.js
+lib/GlobalConfig.dart
