@@ -8,7 +8,7 @@ import '../colorPalette.dart';
 
 import './signupScreen.dart';
 import './otpScreen.dart';
-import '../models/phoneNumber.dart';
+import '../models/provider/phoneNumber.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/loginScreen";

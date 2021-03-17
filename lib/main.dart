@@ -8,7 +8,7 @@ import './screens/signupScreen.dart';
 import './screens/otpScreen.dart';
 import './screens/homeScreen.dart';
 import './screens/productDetailsScreen.dart';
-import './models/phoneNumber.dart';
+import 'models/provider/phoneNumber.dart';
 
 import './colorPalette.dart';
 

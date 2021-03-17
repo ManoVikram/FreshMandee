@@ -9,7 +9,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import './loginScreen.dart';
-import '../models/phoneNumber.dart';
+import '../models/provider/phoneNumber.dart';
 
 class OTPScreen extends StatefulWidget {
   static const String routeName = "/otpScreen";

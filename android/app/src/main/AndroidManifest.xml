@@ -2,6 +2,7 @@
     package="com.example.the_farm_market">
    <application
         android:label="the_farm_market"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
