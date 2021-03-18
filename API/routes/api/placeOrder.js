@@ -144,4 +144,24 @@ router.post("/placeOrder", (request, response) => {
     );
 });
 
+/*
+TYPE    POST
+ROUTE   /api/user/pastOrders
+DESC    Route for viewing all the past orders of the user.
+ACCESS  PUBLIC
+ */
+router.post("/pastOrders", (request, response) => {
+    Person.findOne({ firebaseUID: request.body.firebaseUID }).then(
+        (person) => {
+            if (!person) {
+                return response.status(500).json({ error: "You are not allowed to access this route." });
+            } else {
+                return response.json({ productsBought: person.productsBuy });
+            }
+        }
+    ).catch(
+        (error) => console.log("Unable to find the past orders of the user. " + error),
+    );
+});
+
 module.exports = router;
