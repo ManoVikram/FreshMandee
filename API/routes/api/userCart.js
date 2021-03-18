@@ -204,4 +204,34 @@ router.delete("/removeProduct", (request, response) => {
     );
 });
 
+/*
+TYPE    POST
+ROUTE   /api/user/cart/allProducts
+DESC    Route for viewing all the products in the user's cart.
+ACCESS  PUBLIC
+ */
+router.post("/allProducts", (request, response) => {
+    Person.findOne({ firebaseUID: request.body.firebaseUID }).then(
+        (person) => {
+            if (!person) {
+                return response.status(500).json({ error: "You are not allowed to access this route." });
+            } else {
+                Cart.findOne({ userID: person._id }).then(
+                    (cart) => {
+                        if (!cart) {
+                            return response.status(400).json({ error: "Your cart is empty." });
+                        } else {
+                            return response.json({ cartItems: cart.productsList });
+                        }
+                    }
+                ).catch(
+                    (error) => console.log("Unable to view all the products in your cart. " + error),
+                );
+            }
+        }
+    ).catch(
+        (error) => console.log("Error while viewing all your cart products. " + error),
+    );
+});
+
 module.exports = router;
