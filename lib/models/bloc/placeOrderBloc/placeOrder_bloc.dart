@@ -11,13 +11,13 @@ part 'placeOrder_event.dart';
 part 'placeOrder_state.dart';
 
 class PlaceOrderBloc extends Bloc<PlaceOrderEvent, PlaceOrderState> {
-  PlaceOrderBloc() : super(PlaceOrderState());
+  PlaceOrderBloc() : super(PlaceOrderInitial());
 
   @override
   Stream<PlaceOrderState> mapEventToState(PlaceOrderEvent event) async* {
-    const String url = "http://$API_HOST/api/user/placeOrder";
-
     if (event is PlaceOrder) {
+      const String url = "http://$API_HOST/api/user/placeOrder";
+
       final response = await http.post(
         url,
         body: {
@@ -35,8 +35,23 @@ class PlaceOrderBloc extends Bloc<PlaceOrderEvent, PlaceOrderState> {
         productsBought: extractedData["productsBuy"] ?? null,
       );
 
-      yield PlaceOrderState(
+      yield PlaceUserOrderState(
         userData: loadedData,
+      );
+    } else if (event is ViewOrders) {
+      const String url = "http://$API_HOST/api/user/pastOrders";
+
+      final response = await http.post(
+        url,
+        body: {
+          "firebaseUID": event.firebaseUID,
+        },
+      );
+
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+      yield ViewAllOrdersState(
+        allOrders: extractedData,
       );
     }
   }

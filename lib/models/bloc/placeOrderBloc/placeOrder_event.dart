@@ -14,3 +14,11 @@ class PlaceOrder extends PlaceOrderEvent {
     @required this.firebaseUID,
   });
 }
+
+class ViewOrders extends PlaceOrderEvent {
+  final String firebaseUID;
+
+  ViewOrders({
+    @required this.firebaseUID,
+  });
+}

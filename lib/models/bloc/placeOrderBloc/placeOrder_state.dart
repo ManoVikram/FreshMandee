@@ -16,7 +16,7 @@ class UserData {
   });
 }
 
-class PlaceOrderState extends Equatable {
+/* class PlaceOrderState extends Equatable {
   final UserData userData;
 
   PlaceOrderState({
@@ -25,4 +25,31 @@ class PlaceOrderState extends Equatable {
 
   @override
   List<Object> get props => [userData];
+} */
+
+abstract class PlaceOrderState extends Equatable {
+  const PlaceOrderState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class PlaceOrderInitial extends PlaceOrderState {
+  const PlaceOrderInitial();
+}
+
+class PlaceUserOrderState extends PlaceOrderState {
+  final UserData userData;
+
+  PlaceUserOrderState({
+    this.userData,
+  });
+}
+
+class ViewAllOrdersState extends PlaceOrderState {
+  final Map<String, dynamic> allOrders;
+
+  ViewAllOrdersState({
+    this.allOrders,
+  });
 }
