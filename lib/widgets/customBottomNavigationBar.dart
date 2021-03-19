@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../screens/userCartScreen.dart';
+
 import '../colorPalette.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -32,6 +34,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           IconButton(
             icon: FaIcon(
               FontAwesomeIcons.home,
+              color: Colors.deepOrangeAccent,
             ),
             /* icon: Icon(
               Icons.home_outlined,
@@ -40,13 +43,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           IconButton(
             icon: FaIcon(
-              FontAwesomeIcons.heart,
+              FontAwesomeIcons.shoppingCart,
+              color: Colors.deepOrangeAccent,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(UserCartScreen.routeName);
+            },
           ),
           IconButton(
             icon: FaIcon(
-              FontAwesomeIcons.user,
+              FontAwesomeIcons.userAlt,
+              color: Colors.deepOrangeAccent,
             ),
             onPressed: () {},
           ),

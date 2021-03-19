@@ -8,6 +8,7 @@ import './screens/signupScreen.dart';
 import './screens/otpScreen.dart';
 import './screens/homeScreen.dart';
 import './screens/productDetailsScreen.dart';
+import './screens/userCartScreen.dart';
 import 'models/provider/phoneNumber.dart';
 
 import './colorPalette.dart';
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
           OTPScreen.routeName: (contxt) => OTPScreen(),
           HomeScreen.routeName: (contxt) => HomeScreen(),
           ProductDetailsScreen.routeName: (contxt) => ProductDetailsScreen(),
+          UserCartScreen.routeName: (contxt) => UserCartScreen(),
         },
       ),
     );
