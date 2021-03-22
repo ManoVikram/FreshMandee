@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import './screens/loginScreen.dart';
@@ -10,7 +11,16 @@ import './screens/homeScreen.dart';
 import './screens/productDetailsScreen.dart';
 import './screens/userCartScreen.dart';
 import './screens/userAccountScreen.dart';
+
 import './models/provider/phoneNumber.dart';
+
+import './models/bloc/allCategoriesBloc/allCategories_bloc.dart';
+import './models/bloc/placeOrderBloc/placeOrder_bloc.dart';
+import './models/bloc/productsUnderCategoryBloc/productsUnderCategory_bloc.dart';
+import './models/bloc/registerFarmerBloc/registerFarmer_bloc.dart';
+import './models/bloc/registerUserBloc/registerUser_bloc.dart';
+import './models/bloc/updateUserDataBloc/updateUserData_bloc.dart';
+import './models/bloc/userCart/userCart_bloc.dart';
 
 import './colorPalette.dart';
 
@@ -22,31 +32,56 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (contxt) => PhoneNumber(),
+        BlocProvider<AllCategoriesBloc>(
+          create: (contxt) => AllCategoriesBloc(),
+        ),
+        BlocProvider<PlaceOrderBloc>(
+          create: (contxt) => PlaceOrderBloc(),
+        ),
+        BlocProvider<ProductsUnderCategoryBloc>(
+          create: (contxt) => ProductsUnderCategoryBloc(),
+        ),
+        BlocProvider<RegisterFarmerBloc>(
+          create: (contxt) => RegisterFarmerBloc(),
+        ),
+        BlocProvider<RegisterUserBloc>(
+          create: (contxt) => RegisterUserBloc(),
+        ),
+        BlocProvider<UpdateUserDataBloc>(
+          create: (contxt) => UpdateUserDataBloc(),
+        ),
+        BlocProvider<UserCartBloc>(
+          create: (contxt) => UserCartBloc(),
         ),
       ],
-      child: MaterialApp(
-        title: "The Farm Market",
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          scaffoldBackgroundColor: white,
-          primaryColor: primaryGreen,
-          textTheme: Theme.of(context).textTheme.apply(bodyColor: grey),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (contxt) => PhoneNumber(),
+          ),
+        ],
+        child: MaterialApp(
+          title: "The Farm Market",
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: white,
+            primaryColor: primaryGreen,
+            textTheme: Theme.of(context).textTheme.apply(bodyColor: grey),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: TheFarm(),
+          routes: {
+            LoginScreen.routeName: (contxt) => LoginScreen(),
+            SignupScreen.routeName: (contxt) => SignupScreen(),
+            OTPScreen.routeName: (contxt) => OTPScreen(),
+            HomeScreen.routeName: (contxt) => HomeScreen(),
+            ProductDetailsScreen.routeName: (contxt) => ProductDetailsScreen(),
+            UserCartScreen.routeName: (contxt) => UserCartScreen(),
+            UserAccountScreen.routeName: (contxt) => UserAccountScreen(),
+          },
         ),
-        home: TheFarm(),
-        routes: {
-          LoginScreen.routeName: (contxt) => LoginScreen(),
-          SignupScreen.routeName: (contxt) => SignupScreen(),
-          OTPScreen.routeName: (contxt) => OTPScreen(),
-          HomeScreen.routeName: (contxt) => HomeScreen(),
-          ProductDetailsScreen.routeName: (contxt) => ProductDetailsScreen(),
-          UserCartScreen.routeName: (contxt) => UserCartScreen(),
-          UserAccountScreen.routeName: (contxt) => UserAccountScreen(),
-        },
       ),
     );
   }
