@@ -9,6 +9,7 @@ import '../widgets/categoryList.dart';
 import '../widgets/discountList.dart';
 import '../widgets/popularDeals.dart';
 import '../widgets/customBottomNavigationBar.dart';
+import '../widgets/customDrawer.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -70,7 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: customAppBar(),
-      drawer: Drawer(),
+      drawer: CustomDrawer(
+        // TODO: Replace name and email with the name and email of the user
+        name: "User Name",
+        email: "test@test.com",
+      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
