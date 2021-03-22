@@ -33,7 +33,11 @@ class UserCartScreen extends StatelessWidget {
               SizedBox(
                 height: 16.0,
               ),
-              CartTitle(),
+              CartTitle(
+                text1: "My",
+                text2: "Cart",
+                text3: "🛍️",
+              ),
               SizedBox(
                 height: 18.0,
               ),

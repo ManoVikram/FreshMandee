@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartTitle extends StatelessWidget {
+  final String text1;
+  final String text2;
+  final String text3;
+
   const CartTitle({
     Key key,
+    this.text1 = "",
+    this.text2 = "",
+    this.text3 = "",
   }) : super(key: key);
 
   @override
@@ -16,7 +23,7 @@ class CartTitle extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "My\n",
+                text: "$text1\n",
                 style: TextStyle(
                   fontFamily: GoogleFonts.oxygen().fontFamily,
                   fontSize: 36.0,
@@ -25,7 +32,7 @@ class CartTitle extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: "Cart ",
+                text: "$text2 ",
                 style: TextStyle(
                   fontFamily: GoogleFonts.oxygen().fontFamily,
                   fontSize: 36.0,
@@ -34,7 +41,7 @@ class CartTitle extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: "🛍️",
+                text: "$text3",
                 style: TextStyle(
                   fontSize: 32.0,
                 ),

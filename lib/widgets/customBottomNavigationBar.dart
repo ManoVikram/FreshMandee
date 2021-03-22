@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../screens/homeScreen.dart';
 import '../screens/userCartScreen.dart';
+import '../screens/userAccountScreen.dart';
 
 import '../colorPalette.dart';
 
@@ -34,17 +36,22 @@ class CustomBottomNavigationBar extends StatelessWidget {
           IconButton(
             icon: FaIcon(
               FontAwesomeIcons.home,
-              color: Colors.deepOrangeAccent,
+              color: Colors.deepOrangeAccent[100],
             ),
             /* icon: Icon(
               Icons.home_outlined,
             ), */
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                HomeScreen.routeName,
+                (route) => false,
+              );
+            },
           ),
           IconButton(
             icon: FaIcon(
               FontAwesomeIcons.shoppingCart,
-              color: Colors.deepOrangeAccent,
+              color: Colors.deepOrangeAccent[100],
             ),
             onPressed: () {
               Navigator.of(context).pushNamed(UserCartScreen.routeName);
@@ -53,9 +60,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
           IconButton(
             icon: FaIcon(
               FontAwesomeIcons.userAlt,
-              color: Colors.deepOrangeAccent,
+              color: Colors.deepOrangeAccent[100],
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(UserAccountScreen.routeName);
+            },
           ),
         ],
       ),
