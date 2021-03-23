@@ -27,10 +27,20 @@ class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState> {
 
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
 
-      CategoryData loadedData = CategoryData(
-        name: extractedData["name"],
-        image: extractedData["image"],
-      );
+      print(extractedData);
+
+      List<CategoryData> loadedData = [];
+      for (var i = 0; i < extractedData["categories"].length; i++) {
+        CategoryData categoryData = CategoryData(
+          categoryID: extractedData["categories"][i]["_id"],
+          name: extractedData["categories"][i]["name"],
+          image: extractedData["categories"][i]["image"],
+        );
+
+        loadedData.add(categoryData);
+      }
+
+      print(loadedData);
 
       yield AllCategoriesState(
         categoryData: loadedData,
