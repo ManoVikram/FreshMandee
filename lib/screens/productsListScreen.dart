@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import './productDetailsScreen.dart';
 import '../widgets/previousPageButtonIcon.dart';
 import '../widgets/customUnderlinedText.dart';
+import '../widgets/productCard.dart';
 
 class ProductsListScreen extends StatelessWidget {
   static const String routeName = "/productsListScreen";
@@ -14,6 +15,7 @@ class ProductsListScreen extends StatelessWidget {
     final categoryName = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
+      backgroundColor: Colors.green[50],
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Container(
@@ -32,7 +34,6 @@ class ProductsListScreen extends StatelessWidget {
                 height: 8.0,
               ),
               CustomUnderlinedText(
-                // TODO: Replace it with the name of the category
                 text: categoryName,
                 fontSize: 24.0,
               ),
@@ -45,80 +46,18 @@ class ProductsListScreen extends StatelessWidget {
                 ),
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemBuilder: (contxt, index) => Card(
-                  margin: EdgeInsets.all(10.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 7.0,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(6.0),
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          color: Colors.blueGrey[50],
-                        ),
-                        child: Image.asset(
-                          // Replace it with the image of that product
-                          "assets/images/Vegetables.png",
-                          fit: BoxFit.contain,
-                          height: 150,
-                          width: 150,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6.0,
-                      ),
-                      Text(
-                        // TODO: Replace it with the title of the product
-                        "ProductTitle",
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.oxygen().fontFamily,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6.0,
-                      ),
-                      Text(
-                        // TODO: Replace it with the price of that product
-                        "₹ Price",
-                        style: TextStyle(
-                          fontFamily: GoogleFonts.oxygen().fontFamily,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        ),
-                      ),
-                    ],
-                  ),
+                itemBuilder: (contxt, index) => ProductCard(
+                  // TODO: Replace these with the data from the API.
+                  imageURL: "assets/images/Vegetables.png",
+                  productTitle: "ProductTitle",
+                  productCost: 100,
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(ProductDetailsScreen.routeName);
+                  },
                 ),
                 itemCount: 5,
               ),
-              /* ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (contxt, index) => Card(
-                  margin: EdgeInsets.all(10.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 7.0,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/images/Vegetables.png",
-                      ),
-                    ],
-                  ),
-                ),
-                itemCount: 2,
-              ), */
             ],
           ),
         ),
