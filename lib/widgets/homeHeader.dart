@@ -5,8 +5,12 @@ import '../colorPalette.dart';
 
 class HomeHeader extends StatelessWidget {
   final Size size;
+  final String userName;
 
-  HomeHeader({this.size});
+  HomeHeader({
+    this.size,
+    this.userName,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                     Text(
                       // TODO: Replace with user name.
-                      "Human",
+                      userName,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.headline6.copyWith(

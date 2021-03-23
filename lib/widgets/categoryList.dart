@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './categoryCard.dart';
 
+import '../screens/productsListScreen.dart';
+
 class CategoryList extends StatelessWidget {
   final Size size;
 
@@ -50,7 +52,12 @@ class CategoryList extends StatelessWidget {
         itemBuilder: (contxt, index) => CategoryCard(
           category: "Fruits",
           image: Image.asset("assets/images/Fruit.png"),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              ProductsListScreen.routeName,
+              arguments: "CategoryName",
+            );
+          },
         ),
         itemCount: 5,
       ),

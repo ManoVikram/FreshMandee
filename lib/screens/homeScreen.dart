@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_farm_market/models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 import '../colorPalette.dart';
 
@@ -13,7 +12,7 @@ import '../widgets/popularDeals.dart';
 import '../widgets/customBottomNavigationBar.dart';
 import '../widgets/customDrawer.dart';
 
-import '../models/bloc/updateUserDataBloc/updateUserData_bloc.dart';
+import '../models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -72,70 +71,71 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: customAppBar(),
-      drawer: BlocBuilder<CompleteUserDataBloc, CompleteUserDataState>(
-        builder: (context, userDataState) {
-          return CustomDrawer(
+    return BlocBuilder<CompleteUserDataBloc, CompleteUserDataState>(
+      builder: (context, userDataState) {
+        return Scaffold(
+          key: _scaffoldKey,
+          appBar: customAppBar(),
+          drawer: CustomDrawer(
             /* name: "User Name",
             email: "test@test.com", */
             name: userDataState.userData?.name ?? "HUMAN",
             email: userDataState.userData?.email ?? "",
-          );
-        },
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            HomeHeader(
-              size: size,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomUnderlinedText(
-                    text: "Categories",
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Chip(
-                      backgroundColor: primaryGreen,
-                      label: Text(
-                        "See all",
-                        style: TextStyle(
-                          color: Colors.white,
+          ),
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                HomeHeader(
+                  size: size,
+                  userName: userDataState.userData?.name ?? "HUMAN",
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomUnderlinedText(
+                        text: "Categories",
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Chip(
+                          backgroundColor: primaryGreen,
+                          label: Text(
+                            "See all",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                CategoryList(
+                  size: size,
+                ),
+                DiscountList(size: size),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: CustomUnderlinedText(
+                      text: "Popular deals",
                     ),
                   ),
-                ],
-              ),
-            ),
-            CategoryList(
-              size: size,
-            ),
-            DiscountList(size: size),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: CustomUnderlinedText(
-                  text: "Popular deals",
                 ),
-              ),
+                PopularDeals(size: size),
+                SizedBox(
+                  height: 20.0,
+                ),
+              ],
             ),
-            PopularDeals(size: size),
-            SizedBox(
-              height: 20.0,
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+          ),
+          bottomNavigationBar: CustomBottomNavigationBar(),
+        );
+      },
     );
   }
 }

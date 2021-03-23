@@ -4,10 +4,12 @@ import '../colorPalette.dart';
 
 class CustomUnderlinedText extends StatelessWidget {
   final String text;
+  final double fontSize;
 
   const CustomUnderlinedText({
     Key key,
     this.text,
+    this.fontSize = 20.0,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class CustomUnderlinedText extends StatelessWidget {
             child: Text(
               text,
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),

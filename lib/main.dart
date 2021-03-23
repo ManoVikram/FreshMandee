@@ -11,6 +11,7 @@ import './screens/homeScreen.dart';
 import './screens/productDetailsScreen.dart';
 import './screens/userCartScreen.dart';
 import './screens/userAccountScreen.dart';
+import './screens/productsListScreen.dart';
 
 import './models/provider/phoneNumber.dart';
 
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
             ProductDetailsScreen.routeName: (contxt) => ProductDetailsScreen(),
             UserCartScreen.routeName: (contxt) => UserCartScreen(),
             UserAccountScreen.routeName: (contxt) => UserAccountScreen(),
+            ProductsListScreen.routeName: (contxt) => ProductsListScreen(),
           },
         ),
       ),
