@@ -3,12 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../colorPalette.dart';
 
 import './signupScreen.dart';
 import './otpScreen.dart';
 import '../models/provider/phoneNumber.dart';
+import '../models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = "/loginScreen";
@@ -23,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   bool _isLoading = false;
+  UserCredential _userCredential;
 
   @override
   void dispose() {
@@ -68,12 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      _userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-      print(userCredential);
+      print(_userCredential);
     } on FirebaseAuthException catch (e) {
       String errorMessage = "ERROR: Enter a correct Email and Password.";
 
@@ -151,6 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final Size size = MediaQuery.of(context).size;
     final PhoneNumber phoneNumber = context.watch<PhoneNumber>();
 
+    final completeUserDataBloc = BlocProvider.of<CompleteUserDataBloc>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -195,7 +199,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     width: size.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: _signInUser,
+                      onPressed: () async {
+                        await _signInUser();
+                        await completeUserDataBloc.add(
+                          GetCompleteUserData(
+                            firebaseUID: _userCredential.user.uid,
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 7.0,
                         primary: lightGreen,

@@ -57,6 +57,14 @@ class UserAccountScreen extends StatelessWidget {
                   color: Colors.grey[700],
                 ),
               ),
+              Text(
+                // TODO: Replace it with the email of the user
+                "test@test.com",
+                style: TextStyle(
+                  fontFamily: GoogleFonts.oxygen().fontFamily,
+                  color: Colors.grey[700],
+                ),
+              ),
               SizedBox(
                 height: 16.0,
               ),

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -14,6 +15,7 @@ import '../colorPalette.dart';
 import './loginScreen.dart';
 import './otpScreen.dart';
 import '../models/provider/phoneNumber.dart';
+import '../models/bloc/registerUserBloc/registerUser_bloc.dart';
 
 class SignupScreen extends StatefulWidget {
   static const String routeName = "/signupScreen";
@@ -28,6 +30,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   bool _isLoading = false;
+  UserCredential _userCredential;
 
   @override
   void dispose() {
@@ -82,12 +85,12 @@ class _SignupScreenState extends State<SignupScreen> {
     });
 
     try {
-      UserCredential userCredential =
+      _userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-      print(userCredential);
+      print(_userCredential);
     } on FirebaseAuthException catch (e) {
       String errorMessage = "ERROR: Enter a correct Email and Password.";
 
@@ -167,6 +170,8 @@ class _SignupScreenState extends State<SignupScreen> {
     final Size size = MediaQuery.of(context).size;
     final PhoneNumber phoneNumber = context.watch<PhoneNumber>();
 
+    final registerUserBloc = BlocProvider.of<RegisterUserBloc>(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -220,7 +225,15 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Container(
                     width: size.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: _registerUser,
+                      onPressed: () async {
+                        await _registerUser();
+                        await registerUserBloc.add(
+                          RegisterUser(
+                            firebaseUID: _userCredential.user.uid,
+                            email: _userCredential.user.email,
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         elevation: 7.0,
                         primary: Colors.deepOrange,
