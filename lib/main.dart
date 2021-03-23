@@ -21,6 +21,7 @@ import './models/bloc/registerFarmerBloc/registerFarmer_bloc.dart';
 import './models/bloc/registerUserBloc/registerUser_bloc.dart';
 import './models/bloc/updateUserDataBloc/updateUserData_bloc.dart';
 import './models/bloc/userCart/userCart_bloc.dart';
+import './models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 import './colorPalette.dart';
 
@@ -54,6 +55,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<UserCartBloc>(
           create: (contxt) => UserCartBloc(),
+        ),
+        BlocProvider<CompleteUserDataBloc>(
+          create: (contxt) => CompleteUserDataBloc(),
         ),
       ],
       child: MultiProvider(

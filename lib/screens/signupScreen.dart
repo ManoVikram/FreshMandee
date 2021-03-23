@@ -15,7 +15,9 @@ import '../colorPalette.dart';
 import './loginScreen.dart';
 import './otpScreen.dart';
 import '../models/provider/phoneNumber.dart';
+
 import '../models/bloc/registerUserBloc/registerUser_bloc.dart';
+import '../models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 class SignupScreen extends StatefulWidget {
   static const String routeName = "/signupScreen";
@@ -171,6 +173,7 @@ class _SignupScreenState extends State<SignupScreen> {
     final PhoneNumber phoneNumber = context.watch<PhoneNumber>();
 
     final registerUserBloc = BlocProvider.of<RegisterUserBloc>(context);
+    final completeUserBloc = BlocProvider.of<CompleteUserDataBloc>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -227,10 +230,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: ElevatedButton(
                       onPressed: () async {
                         await _registerUser();
+                        print(_userCredential);
                         await registerUserBloc.add(
                           RegisterUser(
                             firebaseUID: _userCredential.user.uid,
                             email: _userCredential.user.email,
+                          ),
+                        );
+                        await completeUserBloc.add(
+                          GetCompleteUserData(
+                            firebaseUID: _userCredential.user.uid,
                           ),
                         );
                       },

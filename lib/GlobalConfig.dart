@@ -1,2 +1,2 @@
-const String API_HOST = "192.168.42.154:3000";
+const String API_HOST = "192.168.43.50:3000";
 const String ADMIN_FIREBASEUID = "41Rw5IO23IQoQJTAmvu4Qokr7e43";

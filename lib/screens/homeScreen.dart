@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:the_farm_market/models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
 import '../colorPalette.dart';
 
@@ -10,6 +12,8 @@ import '../widgets/discountList.dart';
 import '../widgets/popularDeals.dart';
 import '../widgets/customBottomNavigationBar.dart';
 import '../widgets/customDrawer.dart';
+
+import '../models/bloc/updateUserDataBloc/updateUserData_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -71,10 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: customAppBar(),
-      drawer: CustomDrawer(
-        // TODO: Replace name and email with the name and email of the user
-        name: "User Name",
-        email: "test@test.com",
+      drawer: BlocBuilder<CompleteUserDataBloc, CompleteUserDataState>(
+        builder: (context, userDataState) {
+          return CustomDrawer(
+            /* name: "User Name",
+            email: "test@test.com", */
+            name: userDataState.userData?.name ?? "HUMAN",
+            email: userDataState.userData?.email ?? "",
+          );
+        },
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
