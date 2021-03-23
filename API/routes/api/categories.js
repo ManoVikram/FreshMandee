@@ -52,7 +52,8 @@ router.post("/create", upload.single("image"), (request, response) => {
                                 data: fs.readFileSync(request.files.image.path),
                                 contentType: "image/png",
                             }, */
-                            image: request.file.path,
+                            // image: request.file.path,
+                            image: request.body.image,
                             /* image: {
                                 data: fs.readFileSync(request.file.originalname),
                                 contentType: "image/png",

@@ -39,7 +39,10 @@ class CategoryCard extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: image,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: image,
+              ),
             ),
             Container(
               padding: EdgeInsets.all(10.0),
