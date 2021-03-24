@@ -14,6 +14,7 @@ import '../widgets/customBottomNavigationBar.dart';
 import '../widgets/customDrawer.dart';
 
 import '../models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
+import '../models/bloc/allCategoriesBloc/allCategories_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "/homeScreen";
@@ -23,16 +24,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final userFirebaseUID = FirebaseAuth.instance.currentUser.uid;
+
+  // bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
 
     final completeUserDataBloc = BlocProvider.of<CompleteUserDataBloc>(context);
+    final allCategoriesBloc = BlocProvider.of<AllCategoriesBloc>(context);
+
     completeUserDataBloc.add(
       GetCompleteUserData(
-        firebaseUID: FirebaseAuth.instance.currentUser.uid,
+        firebaseUID: userFirebaseUID,
       ),
     );
+
+    allCategoriesBloc.add(
+      ShowAllCategories(
+        firebaseUID: userFirebaseUID,
+      ),
+    );
+
+    /* setState(() {
+      isLoading = false;
+    }); */
   }
 
   @override
@@ -128,6 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                /* if (isLoading)
+                  Center(
+                    child: CircularProgressIndicator(),
+                  ), */
+                // if (!isLoading)
                 CategoryList(
                   size: size,
                 ),

@@ -22,27 +22,27 @@ class PopularDeals extends StatelessWidget {
         children: [
           PopularDealsCard(
             size: size,
-            image: "assets/images/FarmerBuyer.png",
+            image: "assets/images/ComingSoon.jpg",
             deal: "25",
             onPressed: () {
-              Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
+              // Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
             },
           ),
           PopularDealsCard(
             size: size,
-            image: "assets/images/FarmerBuyer.png",
+            image: "assets/images/ComingSoon.jpg",
             deal: "25",
             onPressed: () {},
           ),
           PopularDealsCard(
             size: size,
-            image: "assets/images/FarmerBuyer.png",
+            image: "assets/images/ComingSoon.jpg",
             deal: "25",
             onPressed: () {},
           ),
           PopularDealsCard(
             size: size,
-            image: "assets/images/FarmerBuyer.png",
+            image: "assets/images/ComingSoon.jpg",
             deal: "25",
             onPressed: () {},
           ),

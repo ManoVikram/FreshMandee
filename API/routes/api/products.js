@@ -100,9 +100,19 @@ router.post("/all", (request, response) => {
                                 } else {
                                     var products = [];
 
-                                    product.forEach(prodct => {
-                                        products.push(prodct);
-                                    });
+                                    /* product.forEach(prodct => {
+                                        console.log(prodct.categoryID + " " + category._id);
+                                        if (prodct.categoryID === request.body.categoryID) {
+                                            products.push(prodct);
+                                        }
+                                    }); */
+
+                                    for (var i = 0; i < product.length; i++) {
+                                        console.log(product[i].categoryID + " " + category._id);
+                                        if (product[i].categoryID == request.body.categoryID) {
+                                            products.push(product[i]);
+                                        }
+                                    }
 
                                     return response.json({ products: products });
                                 }

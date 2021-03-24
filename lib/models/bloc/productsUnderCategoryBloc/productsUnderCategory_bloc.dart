@@ -30,8 +30,23 @@ class ProductsUnderCategoryBloc
 
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
 
+      List<ProductData> loadedData = [];
+      for (var i = 0; i < extractedData["products"].length; i++) {
+        ProductData productData = ProductData(
+          productID: extractedData["products"]["_id"],
+          categoryID: extractedData["products"]["categoryID"],
+          name: extractedData["products"]["name"],
+          description: extractedData["products"]["description"],
+          image: extractedData["products"]["image"],
+          price: extractedData["products"]["price"],
+          discount: extractedData["products"]["discount"],
+        );
+
+        loadedData.add(productData);
+      }
+
       yield ProductsUnderCategoryState(
-        products: extractedData["products"],
+        products: loadedData,
       );
     }
   }
