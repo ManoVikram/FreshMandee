@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../colorPalette.dart';
@@ -22,6 +23,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final completeUserDataBloc = BlocProvider.of<CompleteUserDataBloc>(context);
+    completeUserDataBloc.add(
+      GetCompleteUserData(
+        firebaseUID: FirebaseAuth.instance.currentUser.uid,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -70,6 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
+
+    // FirebaseAuth.instance.currentUser.uid;
 
     return BlocBuilder<CompleteUserDataBloc, CompleteUserDataState>(
       builder: (context, userDataState) {
