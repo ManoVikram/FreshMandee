@@ -1,13 +1,13 @@
 part of 'productsUnderCategory_bloc.dart';
 
 class ProductData {
-  final String productID;
-  final String categoryID;
-  final String name;
-  final String description;
-  final String image;
-  final int discount;
-  final int price;
+  final dynamic productID;
+  final dynamic categoryID;
+  final dynamic name;
+  final dynamic description;
+  final dynamic image;
+  final dynamic discount;
+  final dynamic price;
 
   ProductData({
     this.productID,

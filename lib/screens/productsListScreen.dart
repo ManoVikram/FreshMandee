@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './productDetailsScreen.dart';
 import '../widgets/previousPageButtonIcon.dart';
 import '../widgets/customUnderlinedText.dart';
 import '../widgets/productCard.dart';
+
+import '../models/bloc/productsUnderCategoryBloc/productsUnderCategory_bloc.dart';
 
 class ProductsListScreen extends StatelessWidget {
   static const String routeName = "/productsListScreen";
@@ -37,26 +40,40 @@ class ProductsListScreen extends StatelessWidget {
                 text: categoryName,
                 fontSize: 24.0,
               ),
-              GridView.builder(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  childAspectRatio: 0.7,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  maxCrossAxisExtent: size.width / 2.0,
-                ),
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (contxt, index) => ProductCard(
-                  // TODO: Replace these with the data from the API.
-                  imageURL: "assets/images/Vegetables.png",
-                  productTitle: "ProductTitle",
-                  productCost: 100,
-                  onPressed: () {
-                    Navigator.of(context)
-                        .pushNamed(ProductDetailsScreen.routeName);
-                  },
-                ),
-                itemCount: 5,
+              BlocBuilder<ProductsUnderCategoryBloc,
+                  ProductsUnderCategoryState>(
+                builder: (context, productsUnderCategoryState) {
+                  return productsUnderCategoryState?.products == null
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            childAspectRatio: 0.7,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0,
+                            maxCrossAxisExtent: size.width / 2.0,
+                          ),
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (contxt, index) => ProductCard(
+                            // imageURL: "assets/images/Vegetables.png",
+                            imageURL: productsUnderCategoryState
+                                ?.products[index]?.image,
+                            productTitle: productsUnderCategoryState
+                                ?.products[index]?.name,
+                            productCost: productsUnderCategoryState
+                                ?.products[index]?.price,
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushNamed(ProductDetailsScreen.routeName);
+                            },
+                          ),
+                          itemCount:
+                              productsUnderCategoryState?.products?.length,
+                        );
+                },
               ),
             ],
           ),

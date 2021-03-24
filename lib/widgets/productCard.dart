@@ -36,12 +36,14 @@ class ProductCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 color: Colors.blueGrey[50],
               ),
-              child: Image.asset(
-                // Replace Image.asset() with NETWORKIMAGE()
-                imageURL,
-                fit: BoxFit.contain,
-                height: 150,
-                width: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.network(
+                  imageURL,
+                  fit: BoxFit.cover,
+                  height: 150,
+                  width: 150,
+                ),
               ),
             ),
             SizedBox(

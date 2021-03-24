@@ -108,7 +108,7 @@ router.post("/all", (request, response) => {
                                     }); */
 
                                     for (var i = 0; i < product.length; i++) {
-                                        console.log(product[i].categoryID + " " + category._id);
+                                        // console.log(product[i].categoryID + " " + category._id);
                                         if (product[i].categoryID == request.body.categoryID) {
                                             products.push(product[i]);
                                         }

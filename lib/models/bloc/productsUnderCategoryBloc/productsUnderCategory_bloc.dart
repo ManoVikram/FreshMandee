@@ -33,13 +33,13 @@ class ProductsUnderCategoryBloc
       List<ProductData> loadedData = [];
       for (var i = 0; i < extractedData["products"].length; i++) {
         ProductData productData = ProductData(
-          productID: extractedData["products"]["_id"],
-          categoryID: extractedData["products"]["categoryID"],
-          name: extractedData["products"]["name"],
-          description: extractedData["products"]["description"],
-          image: extractedData["products"]["image"],
-          price: extractedData["products"]["price"],
-          discount: extractedData["products"]["discount"],
+          productID: extractedData["products"][i]["_id"],
+          categoryID: extractedData["products"][i]["categoryID"],
+          name: extractedData["products"][i]["name"],
+          description: extractedData["products"][i]["description"],
+          image: extractedData["products"][i]["image"],
+          price: extractedData["products"][i]["price"],
+          discount: extractedData["products"][i]["discount"],
         );
 
         loadedData.add(productData);
