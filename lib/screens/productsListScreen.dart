@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +8,7 @@ import '../widgets/customUnderlinedText.dart';
 import '../widgets/productCard.dart';
 
 import '../models/bloc/productsUnderCategoryBloc/productsUnderCategory_bloc.dart';
+import '../models/bloc/productDetailsBloc/productDetails_bloc.dart';
 
 class ProductsListScreen extends StatelessWidget {
   static const String routeName = "/productsListScreen";
@@ -14,6 +16,8 @@ class ProductsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    final productDetailsBloc = BlocProvider.of<ProductDetailsBloc>(context);
 
     final categoryName = ModalRoute.of(context).settings.arguments;
 
@@ -66,6 +70,17 @@ class ProductsListScreen extends StatelessWidget {
                             productCost: productsUnderCategoryState
                                 ?.products[index]?.price,
                             onPressed: () {
+                              productDetailsBloc.add(
+                                FetchProductDetails(
+                                  firebaseUID:
+                                      FirebaseAuth.instance.currentUser.uid,
+                                  categoryID: productsUnderCategoryState
+                                      ?.products[index]?.categoryID,
+                                  productID: productsUnderCategoryState
+                                      ?.products[index]?.productID,
+                                ),
+                              );
+
                               Navigator.of(context)
                                   .pushNamed(ProductDetailsScreen.routeName);
                             },
