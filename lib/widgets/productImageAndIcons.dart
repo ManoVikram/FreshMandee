@@ -4,9 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './iconCard.dart';
 
 class ProductImageAndIcons extends StatelessWidget {
+  final String image;
+
   const ProductImageAndIcons({
     Key key,
     @required this.size,
+    this.image,
   }) : super(key: key);
 
   final Size size;
@@ -75,10 +78,11 @@ class ProductImageAndIcons extends StatelessWidget {
                     ),
                   ],
                   image: DecorationImage(
-                    fit: BoxFit.cover,
-                    alignment: Alignment.centerRight,
-                    // TODO: Change the image correspondingly and add Hero animation
-                    image: AssetImage("assets/images/FarmerBuyer.png"),
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                    // TODO: Add Hero animation
+                    // image: AssetImage("assets/images/FarmerBuyer.png"),
+                    image: NetworkImage(image),
                   ),
                 ),
               ),

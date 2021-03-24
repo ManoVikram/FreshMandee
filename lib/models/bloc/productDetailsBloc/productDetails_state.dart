@@ -6,8 +6,8 @@ class ProductData {
   final String name;
   final String description;
   final String image;
-  final int price;
-  final int discount;
+  final dynamic price;
+  final dynamic discount;
 
   ProductData({
     this.productID,
