@@ -11,8 +11,8 @@ import '../../../GlobalConfig.dart';
 part 'addToCart_event.dart';
 part 'addToCart_state.dart';
 
-class AllToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
-  AllToCartBloc() : super(AddToCartState());
+class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
+  AddToCartBloc() : super(AddToCartState());
 
   @override
   Stream<AddToCartState> mapEventToState(AddToCartEvent event) async* {

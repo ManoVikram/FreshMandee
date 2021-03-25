@@ -21,9 +21,12 @@ import './models/bloc/productsUnderCategoryBloc/productsUnderCategory_bloc.dart'
 import './models/bloc/registerFarmerBloc/registerFarmer_bloc.dart';
 import './models/bloc/registerUserBloc/registerUser_bloc.dart';
 import './models/bloc/updateUserDataBloc/updateUserData_bloc.dart';
-import './models/bloc/userCart/userCart_bloc.dart';
+import './models/bloc/userCartBloc/userCart_bloc.dart';
 import './models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 import './models/bloc/productDetailsBloc/productDetails_bloc.dart';
+import './models/bloc/addToCartBloc/addToCart_bloc.dart';
+import './models/bloc/viewCartBloc/viewCart_bloc.dart';
+import './models/bloc/removeFromCartBloc/removeFromCart_bloc.dart';
 
 import './colorPalette.dart';
 
@@ -63,6 +66,15 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider<ProductDetailsBloc>(
           create: (contxt) => ProductDetailsBloc(),
+        ),
+        BlocProvider<AddToCartBloc>(
+          create: (contxt) => AddToCartBloc(),
+        ),
+        BlocProvider<ViewCartBloc>(
+          create: (contxt) => ViewCartBloc(),
+        ),
+        BlocProvider<RemoveFromCartBloc>(
+          create: (contxt) => RemoveFromCartBloc(),
         ),
       ],
       child: MultiProvider(
