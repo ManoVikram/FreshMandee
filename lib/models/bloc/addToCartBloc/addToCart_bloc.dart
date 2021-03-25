@@ -19,6 +19,8 @@ class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
     if (event is AddToCart) {
       const String url = "http://$API_HOST/api/user/cart/add";
 
+      print(url);
+
       final response = await http.post(
         url,
         body: {
@@ -28,15 +30,30 @@ class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
         },
       );
 
+      print("A");
+      print(response.body);
+      print("B");
+
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+      print("C");
+      print(extractedData);
+      print("D");
+
+      List<CartProductData> cartProducts = [];
+      for (var i = 0; i < extractedData["cart"]["productsList"]?.length; i++) {
+        CartProductData cartProductData = CartProductData(
+          productID: extractedData["cart"]["productsList"]["productID"],
+          quantity: extractedData["cart"]["productsList"]["quantity"],
+        );
+
+        cartProducts.add(cartProductData);
+      }
 
       CartData loadedData = CartData(
         cartID: extractedData["cart"]["_id"],
         userID: extractedData["cart"]["userID"],
-        productsInCart: CartProductData(
-          quantity: extractedData["cart"]["productsList"]["quantity"],
-          productID: extractedData["cart"]["productsList"]["productID"],
-        ),
+        productsInCart: cartProducts,
       );
 
       yield AddToCartState(

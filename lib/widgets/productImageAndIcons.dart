@@ -41,14 +41,17 @@ class ProductImageAndIcons extends StatelessWidget {
                     IconCard(
                       size: size,
                       icon: Icons.add_shopping_cart_rounded,
+                      onPressed: () {},
                     ),
                     IconCard(
                       size: size,
                       icon: Icons.favorite_outline,
+                      onPressed: () {},
                     ),
                     IconCard(
                       size: size,
                       icon: Icons.share,
+                      onPressed: () {},
                     ),
                     /* IconCard(
                       size: size,

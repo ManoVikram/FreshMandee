@@ -1,14 +1,18 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
+import '../GlobalConfig.dart';
 import '../widgets/productImageAndIcons.dart';
 import '../widgets/titleAndPrice.dart';
 import '../widgets/buyAndDescriptionButtons.dart';
 
 import '../models/bloc/productDetailsBloc/productDetails_bloc.dart';
+import '../models/bloc/addToCartBloc/addToCart_bloc.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   static const String routeName = "/productDetailsScreen";
@@ -16,6 +20,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    final addToCartBloc = BlocProvider.of<AddToCartBloc>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -43,7 +49,26 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       BuyAndDescriptionButtons(
                         size: size,
-                        buyNowOnPressed: () {},
+                        buyNowOnPressed: () async {
+                          // TODO: ERROR in this part
+                          addToCartBloc.add(
+                            AddToCart(
+                              firebaseUID:
+                                  FirebaseAuth.instance.currentUser.uid,
+                              productID:
+                                  productDetailsState?.productData?.productID,
+                              quantity: 1,
+                            ),
+                          );
+
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(
+                          //     content:
+                          //         Text("Item successfully added to the cart."),
+                          //     backgroundColor: Colors.greenAccent[400],
+                          //   ),
+                          // );
+                        },
                         descriptionOnPressed: () {},
                       ),
                     ],

@@ -17,4 +17,7 @@ class AddToCart extends AddToCartEvent {
     @required this.productID,
     @required this.quantity,
   });
+
+  @override
+  List<Object> get props => [firebaseUID, productID, quantity];
 }

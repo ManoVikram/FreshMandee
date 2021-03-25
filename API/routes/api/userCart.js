@@ -107,7 +107,7 @@ router.post("/add", (request, response) => {
                                             {
                                                 $set: {
                                                     "productsList.$.quantity": request.body.quantity,
-                                                },
+                                                }, 
                                             },
                                             {
                                                 new: true,

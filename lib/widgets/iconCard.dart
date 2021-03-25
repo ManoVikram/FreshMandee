@@ -6,17 +6,19 @@ import '../colorPalette.dart';
 class IconCard extends StatelessWidget {
   final Size size;
   final IconData icon;
+  final Function onPressed;
 
   const IconCard({
     Key key,
     this.size,
     this.icon,
+    this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: onPressed,
       minDistance: -10,
       margin: EdgeInsets.symmetric(
         vertical: 20.0,

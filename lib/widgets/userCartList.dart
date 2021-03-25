@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:the_farm_market/models/bloc/productsUnderCategoryBloc/productsUnderCategory_bloc.dart';
 
 import '../models/bloc/viewCartBloc/viewCart_bloc.dart';
 import '../models/bloc/productDetailsBloc/productDetails_bloc.dart';
@@ -23,7 +22,8 @@ class UserCartList extends StatelessWidget {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : (viewCartState?.comment == null
+            : ((viewCartState?.comment == null &&
+                    viewCartState?.cartProducts?.length != 0)
                 ? ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -102,7 +102,9 @@ class UserCartList extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Center(
                       child: Text(
-                        viewCartState?.comment,
+                        viewCartState?.cartProducts?.length != 0
+                            ? viewCartState?.comment
+                            : "Your cart is empty. Add new products.",
                         style: TextStyle(
                           fontFamily: GoogleFonts.oxygen().fontFamily,
                           fontSize: 24.0,

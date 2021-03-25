@@ -13,7 +13,7 @@ class CartProductData {
 class CartData {
   final String cartID;
   final String userID;
-  final CartProductData productsInCart;
+  final List<CartProductData> productsInCart;
 
   CartData({
     this.cartID,
