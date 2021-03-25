@@ -74,8 +74,6 @@ class ProductsListScreen extends StatelessWidget {
                                 FetchProductDetails(
                                   firebaseUID:
                                       FirebaseAuth.instance.currentUser.uid,
-                                  categoryID: productsUnderCategoryState
-                                      ?.products[index]?.categoryID,
                                   productID: productsUnderCategoryState
                                       ?.products[index]?.productID,
                                 ),

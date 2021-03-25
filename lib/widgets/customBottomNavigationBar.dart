@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../screens/homeScreen.dart';
 import '../screens/userCartScreen.dart';
 import '../screens/userAccountScreen.dart';
+
+import '../models/bloc/viewCartBloc/viewCart_bloc.dart';
 
 import '../colorPalette.dart';
 
@@ -14,6 +18,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewCartBloc = BlocProvider.of<ViewCartBloc>(context);
+
     return Container(
       padding: EdgeInsets.only(
         left: 40.0,
@@ -54,6 +60,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
               color: Colors.deepOrangeAccent[100],
             ),
             onPressed: () {
+              viewCartBloc.add(
+                ViewCart(firebaseUID: FirebaseAuth.instance.currentUser.uid),
+              );
+
               Navigator.of(context).pushNamed(UserCartScreen.routeName);
             },
           ),

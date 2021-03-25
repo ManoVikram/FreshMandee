@@ -36,7 +36,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       TitleAndPrice(
                         title: productDetailsState?.productData?.name,
                         country: "India",
-                        price: productDetailsState?.productData?.price,
+                        price: productDetailsState?.productData?.price * 1.0,
                       ),
                       SizedBox(
                         height: 20.0,

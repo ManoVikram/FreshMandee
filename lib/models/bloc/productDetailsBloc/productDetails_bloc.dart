@@ -25,7 +25,6 @@ class ProductDetailsBloc
         url,
         body: {
           "firebaseUID": event.firebaseUID,
-          "categoryID": event.categoryID,
           "productID": event.productID,
         },
       );

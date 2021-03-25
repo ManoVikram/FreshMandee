@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../widgets/userCartList.dart';
 import '../widgets/cartTitle.dart';
@@ -8,12 +9,21 @@ import '../widgets/previousPageButtonIcon.dart';
 import '../widgets/totalCostBox.dart';
 import '../widgets/neumorphicRoundedButton.dart';
 
+import '../models/bloc/viewCartBloc/viewCart_bloc.dart';
+
 class UserCartScreen extends StatelessWidget {
   static const String routeName = "/userCartScreen";
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    final viewCartBloc = BlocProvider.of<ViewCartBloc>(context);
+    viewCartBloc.add(
+      ViewCart(
+        firebaseUID: FirebaseAuth.instance.currentUser.uid,
+      ),
+    );
 
     return Scaffold(
       body: SingleChildScrollView(

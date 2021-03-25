@@ -28,11 +28,19 @@ class ViewCartBloc extends Bloc<ViewCartEvent, ViewCartState> {
 
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
 
+      print(extractedData);
+
+      if (extractedData["error"] != null) {
+        yield ViewCartState(
+          comment: "Your cart is empty. Add new products.",
+        );
+      }
+
       List<ProductData> loadedData = [];
-      for (var i = 0; i < extractedData["cartItems"]; i++) {
+      for (var i = 0; i < extractedData["cartItems"]?.length; i++) {
         ProductData productData = ProductData(
-          productID: extractedData["cartItems"]["productID"],
-          quantity: extractedData["cartItems"]["quantity"],
+          productID: extractedData["cartItems"][i]["productID"],
+          quantity: extractedData["cartItems"][i]["quantity"],
         );
 
         loadedData.add(productData);

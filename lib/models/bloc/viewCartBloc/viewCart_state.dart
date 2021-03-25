@@ -12,11 +12,13 @@ class ProductData {
 
 class ViewCartState extends Equatable {
   final List<ProductData> cartProducts;
+  final String comment;
 
   ViewCartState({
     this.cartProducts,
+    this.comment,
   });
 
   @override
-  List<Object> get props => [cartProducts];
+  List<Object> get props => [cartProducts, comment];
 }
