@@ -41,7 +41,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       SizedBox(
                         height: 20.0,
                       ),
-                      BuyAndDescriptionButtons(size: size),
+                      BuyAndDescriptionButtons(
+                        size: size,
+                        buyNowOnPressed: () {},
+                        descriptionOnPressed: () {},
+                      ),
                     ],
                   );
           },

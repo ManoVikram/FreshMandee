@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const HOST = "192.168.42.55";
+const HOST = "192.168.43.50";
 const PORT = process.env.PORT || 3000;
 
 // Middleware for body-parser

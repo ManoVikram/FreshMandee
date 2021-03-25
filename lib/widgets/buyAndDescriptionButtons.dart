@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../colorPalette.dart';
 
 class BuyAndDescriptionButtons extends StatelessWidget {
+  final Function buyNowOnPressed;
+  final Function descriptionOnPressed;
+
   const BuyAndDescriptionButtons({
     Key key,
     @required this.size,
+    this.buyNowOnPressed,
+    this.descriptionOnPressed,
   }) : super(key: key);
 
   final Size size;
@@ -18,7 +23,7 @@ class BuyAndDescriptionButtons extends StatelessWidget {
           height: 85,
           width: size.width / 2,
           child: TextButton(
-            onPressed: () {},
+            onPressed: buyNowOnPressed,
             style: TextButton.styleFrom(
               backgroundColor: primaryGreen,
               shape: RoundedRectangleBorder(
@@ -40,7 +45,7 @@ class BuyAndDescriptionButtons extends StatelessWidget {
           child: SizedBox(
             height: 85,
             child: TextButton(
-              onPressed: () {},
+              onPressed: descriptionOnPressed,
               child: Text(
                 "Description",
                 style: TextStyle(
