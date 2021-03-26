@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../models/bloc/placeOrderBloc/placeOrder_bloc.dart';
+import '../models/bloc/viewCartBloc/viewCart_bloc.dart';
 
 class NeumorphicRoundedButton extends StatelessWidget {
   final String text;
@@ -20,6 +21,7 @@ class NeumorphicRoundedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final placeOrderBloc = BlocProvider.of<PlaceOrderBloc>(context);
+    final viewCartBloc = BlocProvider.of<ViewCartBloc>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -31,6 +33,17 @@ class NeumorphicRoundedButton extends StatelessWidget {
           placeOrderBloc.add(
             PlaceOrder(
               firebaseUID: FirebaseAuth.instance.currentUser.uid,
+            ),
+          );
+
+          viewCartBloc.add(
+            ViewCart(firebaseUID: FirebaseAuth.instance.currentUser.uid),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.greenAccent[400],
+              content: Text("Order Placed Successfully."),
             ),
           );
         },

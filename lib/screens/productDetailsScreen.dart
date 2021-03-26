@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 import '../GlobalConfig.dart';
@@ -20,6 +21,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final TextEditingController _quantityController = TextEditingController();
 
     final addToCartBloc = BlocProvider.of<AddToCartBloc>(context);
 
@@ -51,23 +53,63 @@ class ProductDetailsScreen extends StatelessWidget {
                         size: size,
                         buyNowOnPressed: () async {
                           // TODO: ERROR in this part
-                          addToCartBloc.add(
+                          int quantity;
+
+                          await showDialog(
+                            context: context,
+                            builder: (contxt) => SimpleDialog(
+                              title: Text(
+                                "Quantity",
+                                style: TextStyle(
+                                  fontFamily: GoogleFonts.exo2().fontFamily,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              backgroundColor: Colors.teal[50],
+                              contentPadding: EdgeInsets.all(10.0),
+                              children: [
+                                TextField(
+                                  controller: _quantityController,
+                                  keyboardType: TextInputType.number,
+                                ),
+                                Center(
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      "Confirm",
+                                      style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.oxygen().fontFamily,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          await addToCartBloc.add(
                             AddToCart(
                               firebaseUID:
                                   FirebaseAuth.instance.currentUser.uid,
                               productID:
                                   productDetailsState?.productData?.productID,
-                              quantity: 1,
+                              quantity: int.parse(_quantityController.text),
                             ),
                           );
 
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //     content:
-                          //         Text("Item successfully added to the cart."),
-                          //     backgroundColor: Colors.greenAccent[400],
-                          //   ),
-                          // );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text("Item successfully added to the cart."),
+                              backgroundColor: Colors.greenAccent[400],
+                            ),
+                          );
                         },
                         descriptionOnPressed: () {},
                       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import './listTileDivider.dart';
 import '../screens/userAccountScreen.dart';
+import '../screens/pastOrdersScreen.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String name;
@@ -34,7 +35,9 @@ class CustomDrawer extends StatelessWidget {
           ListTileDivider(
             text: "Orders",
             icon: Icons.bubble_chart,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(PastOrdersScreen.routeName);
+            },
           ),
           ListTileDivider(
             text: "Get In Touch",
