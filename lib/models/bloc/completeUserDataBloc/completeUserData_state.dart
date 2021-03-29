@@ -1,5 +1,15 @@
 part of 'completeUserData_bloc.dart';
 
+class BoughtProductData {
+  final String productID;
+  final int quantity;
+
+  BoughtProductData({
+    this.productID,
+    this.quantity,
+  });
+}
+
 class UserData {
   final String firebaseUID;
   final String name;
@@ -7,7 +17,7 @@ class UserData {
   final String phoneNumber;
   final String location;
   final bool isFarmer;
-  final List<dynamic> productsBought;
+  final List<BoughtProductData> productsBought;
 
   UserData({
     this.firebaseUID,

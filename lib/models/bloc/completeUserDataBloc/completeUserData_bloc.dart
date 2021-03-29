@@ -30,13 +30,23 @@ class CompleteUserDataBloc
 
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
 
+      List<BoughtProductData> boughtProducts = [];
+      for (var i = 0; i < extractedData["productsBuy"].length; i++) {
+        BoughtProductData boughtProductData = BoughtProductData(
+          productID: extractedData["productsBuy"][i]["productID"],
+          quantity: extractedData["productsBuy"][i]["quantity"],
+        );
+
+        boughtProducts.add(boughtProductData);
+      }
+
       UserData loadedData = UserData(
         firebaseUID: extractedData["firebaseUID"],
         email: extractedData["email"],
         name: extractedData["name"],
         phoneNumber: extractedData["phoneNumber"],
         isFarmer: extractedData["isFarmer"],
-        productsBought: extractedData["productsBuy"],
+        productsBought: boughtProducts,
       );
 
       yield CompleteUserDataState(
