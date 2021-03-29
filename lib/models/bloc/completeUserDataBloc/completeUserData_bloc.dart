@@ -19,8 +19,7 @@ class CompleteUserDataBloc
   Stream<CompleteUserDataState> mapEventToState(
       CompleteUserDataEvent event) async* {
     // const String url = "http://$API_HOST/api/auth/profile";
-    const String url =
-        "https://pacific-shore-21505.herokuapp.com/api/auth/profile";
+    const String url = "https://kisanmandee.herokuapp.com/api/auth/profile";
 
     if (event is GetCompleteUserData) {
       final response = await http.post(

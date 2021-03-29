@@ -19,7 +19,7 @@ class ViewCartBloc extends Bloc<ViewCartEvent, ViewCartState> {
     if (event is ViewCart) {
       // const String url = "http://$API_HOST/api/user/cart/allProducts";
       const String url =
-          "https://pacific-shore-21505.herokuapp.com/api/user/cart/allProducts";
+          "https://kisanmandee.herokuapp.com/api/user/cart/allProducts";
 
       final response = await http.post(
         url,

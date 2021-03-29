@@ -17,8 +17,7 @@ class UserCartBloc extends Bloc<UserCartEvent, UserCartState> {
   Stream<UserCartState> mapEventToState(UserCartEvent event) async* {
     if (event is AddToCart) {
       // const String url = "http://$API_HOST/api/user/cart/add";
-      const String url =
-          "https://pacific-shore-21505.herokuapp.com/api/user/cart/add";
+      const String url = "https://kisanmandee.herokuapp.com/api/user/cart/add";
 
       final response = await http.post(
         url,

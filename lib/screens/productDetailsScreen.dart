@@ -93,7 +93,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                           );
 
-                          await addToCartBloc.add(
+                          addToCartBloc.add(
                             AddToCart(
                               firebaseUID:
                                   FirebaseAuth.instance.currentUser.uid,

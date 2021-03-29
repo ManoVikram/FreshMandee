@@ -19,7 +19,7 @@ class ProductsUnderCategoryBloc
       ProductsUnderCategoryEvent event) async* {
     // const String url = "http://$API_HOST/api/category/product/all";
     const String url =
-        "https://pacific-shore-21505.herokuapp.com/api/category/product/all";
+        "https://kisanmandee.herokuapp.com/api/category/product/all";
 
     if (event is FetchProducts) {
       final response = await http.post(

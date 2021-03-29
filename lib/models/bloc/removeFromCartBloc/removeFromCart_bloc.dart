@@ -21,7 +21,7 @@ class RemoveFromCartBloc
     if (event is RemoveProduct) {
       // const String url = "http://$API_HOST/api/user/cart/removeProduct";
       const String url =
-          "https://pacific-shore-21505.herokuapp.com/api/user/cart/removeProduct";
+          "https://kisanmandee.herokuapp.com/api/user/cart/removeProduct";
 
       final response = await http.post(
         url,

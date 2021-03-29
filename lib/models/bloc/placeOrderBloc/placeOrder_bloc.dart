@@ -18,7 +18,7 @@ class PlaceOrderBloc extends Bloc<PlaceOrderEvent, PlaceOrderState> {
     if (event is PlaceOrder) {
       // const String url = "http://$API_HOST/api/user/placeOrder";
       const String url =
-          "https://pacific-shore-21505.herokuapp.com/api/user/placeOrder";
+          "https://kisanmandee.herokuapp.com/api/user/placeOrder";
 
       final response = await http.post(
         url,

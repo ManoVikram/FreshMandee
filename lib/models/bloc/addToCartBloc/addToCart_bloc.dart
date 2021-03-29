@@ -18,8 +18,7 @@ class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
   Stream<AddToCartState> mapEventToState(AddToCartEvent event) async* {
     if (event is AddToCart) {
       // const String url = "http://$API_HOST/api/user/cart/add";
-      const String url =
-          "https://pacific-shore-21505.herokuapp.com/api/user/cart/add";
+      const String url = "https://kisanmandee.herokuapp.com/api/user/cart/add";
 
       print(url);
 
@@ -45,8 +44,8 @@ class AddToCartBloc extends Bloc<AddToCartEvent, AddToCartState> {
       List<CartProductData> cartProducts = [];
       for (var i = 0; i < extractedData["cart"]["productsList"]?.length; i++) {
         CartProductData cartProductData = CartProductData(
-          productID: extractedData["cart"]["productsList"]["productID"],
-          quantity: extractedData["cart"]["productsList"]["quantity"],
+          productID: extractedData["cart"]["productsList"][i]["productID"],
+          quantity: extractedData["cart"]["productsList"][i]["quantity"],
         );
 
         cartProducts.add(cartProductData);
