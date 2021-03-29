@@ -17,7 +17,9 @@ class ViewCartBloc extends Bloc<ViewCartEvent, ViewCartState> {
   @override
   Stream<ViewCartState> mapEventToState(ViewCartEvent event) async* {
     if (event is ViewCart) {
-      const String url = "http://$API_HOST/api/user/cart/allProducts";
+      // const String url = "http://$API_HOST/api/user/cart/allProducts";
+      const String url =
+          "https://pacific-shore-21505.herokuapp.com/api/user/cart/allProducts";
 
       final response = await http.post(
         url,

@@ -15,7 +15,9 @@ class RegisterUserBloc extends Bloc<RegisterUserEvent, RegisterUserState> {
 
   @override
   Stream<RegisterUserState> mapEventToState(RegisterUserEvent event) async* {
-    const String url = "http://$API_HOST/api/auth/registerPerson";
+    // const String url = "http://$API_HOST/api/auth/registerPerson";
+    const String url =
+        "https://pacific-shore-21505.herokuapp.com/api/auth/registerPerson";
 
     if (event is RegisterUser) {
       final response = await http.post(

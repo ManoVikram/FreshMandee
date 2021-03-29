@@ -17,7 +17,9 @@ class UpdateUserDataBloc
   @override
   Stream<UpdateUserDataState> mapEventToState(
       UpdateUserDataEvent event) async* {
-    const String url = "http://$API_HOST/api/auth/update/user";
+    // const String url = "http://$API_HOST/api/auth/update/user";
+    const String url =
+        "https://pacific-shore-21505.herokuapp.com/api/auth/update/user";
 
     if (event is UpdateUserData) {
       final response = await http.post(

@@ -15,7 +15,9 @@ class AllCategoriesBloc extends Bloc<AllCategoriesEvent, AllCategoriesState> {
 
   @override
   Stream<AllCategoriesState> mapEventToState(AllCategoriesEvent event) async* {
-    const String url = "http://$API_HOST/api/category/all";
+    // const String url = "http://$API_HOST/api/category/all";
+    const String url =
+        "https://pacific-shore-21505.herokuapp.com/api/category/all";
 
     if (event is ShowAllCategories) {
       final response = await http.post(

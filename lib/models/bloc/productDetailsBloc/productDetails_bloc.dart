@@ -19,7 +19,9 @@ class ProductDetailsBloc
   Stream<ProductDetailsState> mapEventToState(
       ProductDetailsEvent event) async* {
     if (event is FetchProductDetails) {
-      const String url = "http://$API_HOST/api/category/product/view";
+      // const String url = "http://$API_HOST/api/category/product/view";
+      const String url =
+          "https://pacific-shore-21505.herokuapp.com/api/category/product/view";
 
       final response = await http.post(
         url,

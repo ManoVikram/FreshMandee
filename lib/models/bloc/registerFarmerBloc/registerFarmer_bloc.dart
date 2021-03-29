@@ -17,7 +17,9 @@ class RegisterFarmerBloc
   @override
   Stream<RegisterFarmerState> mapEventToState(
       RegisterFarmerEvent event) async* {
-    const String url = "http://$API_HOST/api/auth/farmer/registerFarmer";
+    // const String url = "http://$API_HOST/api/auth/farmer/registerFarmer";
+    const String url =
+        "https://pacific-shore-21505.herokuapp.com/api/auth/farmer/registerFarmer";
 
     if (event is RegisterFarmer) {
       final response = await http.post(

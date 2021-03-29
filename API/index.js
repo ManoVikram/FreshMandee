@@ -42,4 +42,4 @@ app.use("/api/category/product", products);
 app.use("/api/user/cart", cart);
 app.use("/api/user", placeOrder);
 
-app.listen(PORT, HOST, () => console.log(`Server is running on http://${HOST}:${PORT}`));
+app.listen(PORT, /* HOST, */() => console.log(`Server is running on https://kisanmandee.herokuapp.com/`));
