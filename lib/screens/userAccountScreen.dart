@@ -8,6 +8,7 @@ import '../widgets/cartTitle.dart';
 import '../widgets/previousPageButtonIcon.dart';
 import '../widgets/userAvatar.dart';
 import '../widgets/neumorphicRectangularTileButton.dart';
+import './contactUsScreen.dart';
 
 import '../models/bloc/completeUserDataBloc/completeUserData_bloc.dart';
 
@@ -77,7 +78,10 @@ class UserAccountScreen extends StatelessWidget {
                     size: size,
                     leadingIcon: Icons.quick_contacts_dialer_outlined,
                     title: "Contact Us",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(ContactUsScreen.routeName);
+                    },
                   ),
                   NeumorphicRectangularTileButton(
                     size: size,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './listTileDivider.dart';
 import '../screens/userAccountScreen.dart';
 import '../screens/pastOrdersScreen.dart';
+import '../screens/contactUsScreen.dart';
 
 class CustomDrawer extends StatelessWidget {
   final String name;
@@ -42,7 +43,9 @@ class CustomDrawer extends StatelessWidget {
           ListTileDivider(
             text: "Get In Touch",
             icon: Icons.contact_phone_outlined,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(ContactUsScreen.routeName);
+            },
           ),
           ListTileDivider(
             text: "About Us",
