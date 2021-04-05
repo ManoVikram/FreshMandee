@@ -50,7 +50,7 @@ class PastOrdersList extends StatelessWidget {
 
                         return BlocBuilder<ProductDetailsBloc,
                             ProductDetailsState>(
-                          builder: (context, productDetailsState) {
+                          builder: (contxt, productDetailsState) {
                             // Causing weird output
                             // BlocBuilder rebuilds the whole widget tree
                             // TODO: Resolve this bug
